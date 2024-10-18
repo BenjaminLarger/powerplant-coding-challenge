@@ -19,4 +19,4 @@ EXPOSE 8888
 ENV FLASK_APP=./build/main.py  
 
 # Run the Flask application
-CMD ["flask", "run", "--host=0.0.0.0", "--port=8888"]
+CMD ["flask", "run", "--debug", "--host=0.0.0.0", "--port=8888"]
