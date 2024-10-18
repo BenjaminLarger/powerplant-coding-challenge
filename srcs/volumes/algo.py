@@ -129,12 +129,15 @@ def order_powerplants_by_cost(powerplants, fuels):
     powerplants_ordered_by_cost.sort(key=lambda x: x['cost'])
     logging.debug(f"Powerplants ordered by cost: {powerplants_ordered_by_cost}")
     
-    return powerplants
+    return powerplants_ordered_by_cost
 
 def pick_powerplants(powerplants_ordered_by_cost, load):
+    logging.debug(f"")
+    logging.debug(f"pick_powerplants")
     powerplants_selected = []
     remaining_load = load
     for powerplant in powerplants_ordered_by_cost:
+        logging.debug(f"powerplant : {powerplant}")
         pmax = powerplant['pmax']
         pmin = powerplant['pmin']
         name = powerplant['name']
@@ -146,7 +149,7 @@ def pick_powerplants(powerplants_ordered_by_cost, load):
             powerplants_selected.append({"name": name, "p": remaining_load})
             remaining_load = 0
         if remaining_load == 0:
-            break
+          powerplants_selected.append({"name": name, "p": remaining_load})
     logging.debug(f"Powerplants selected: {powerplants_selected}")
     return powerplants_selected
 
@@ -166,6 +169,8 @@ def prduction_plan(data):
 
     # Attribute the powerplants to use
     powerplants_selected = pick_powerplants(powerplants_ordered_by_cost, load)
+
+    return powerplants_selected
     
 
 
