@@ -29,4 +29,3 @@ reset:
 	docker volume rm $$(docker volume ls -q); \
 	docker network rm $$(docker network ls -q) 2>/dev/null
 
-	# Send POST request using the payload

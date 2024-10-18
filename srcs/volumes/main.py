@@ -1,10 +1,11 @@
 import logging
 from flask import Flask, request, jsonify
+from algo import prduction_plan
+logging.basicConfig(level=logging.DEBUG)
 
 app = Flask(__name__)
-
-# Configure logging
-logging.basicConfig(level=logging.DEBUG)
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.WARNING)
 
 @app.route('/')
 def hello_world():
@@ -20,7 +21,7 @@ def receive_load():
 
     app.logger.debug(f"Received data: {data}")  # Log the received data
 
-    # You can add your logic here to process the data
+    json_response = prduction_plan(data)
 
     return jsonify({"message": "Data received successfully!", "data": data}), 200
 
