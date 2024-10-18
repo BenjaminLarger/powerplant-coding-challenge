@@ -1,0 +1,21 @@
+name: powerplant
+
+services:
+  main:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    image: powerplant
+    container_name: powerplant
+    volumes:
+      - ./srcs/app:/app
+    networks:
+      - powerplant
+    ports:
+      - "8888:8888"
+    # env_file:
+
+
+networks:
+  powerplant:
+    driver: bridge
