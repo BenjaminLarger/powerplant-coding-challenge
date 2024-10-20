@@ -1,31 +1,24 @@
-SHELL	= /bin/sh
-
-NAME	= powerplant
-
-# Variables
+# API URL
 APP_URL = http://localhost:8888/productionplan
-PAYLOAD_FILE = ./utils/payload1.json
 
-send-request:
-	curl -X POST $(APP_URL) -H "Content-Type: application/json" -d @$(PAYLOAD_FILE)
+# Test payload files
+PAYLOAD_FILE1 = ./utils/payload1.json
+PAYLOAD_FILE2 = ./utils/payload2.json
+PAYLOAD_FILE3 = ./utils/payload3.json
 
+
+# Start the application
 all:
 	cd srcs && docker compose up --build
 
+# Stop the application
 down:
 	cd srcs && docker compose down -v
-stop:
-	cd srcs && docker compose stop
-logs:
-	cd srcs && docker-compose logs -f
-prune:
-	docker image prune
-routine:
-	docker system prune -a
-reset:
-	docker stop $$(docker ps -qa); \
-	docker rm $$(docker ps -qa); \
-	docker rmi -f $$(docker images -qa); \
-	docker volume rm $$(docker volume ls -q); \
-	docker network rm $$(docker network ls -q) 2>/dev/null
 
+# Send test requests
+send-request1:
+	curl -X POST $(APP_URL) -H "Content-Type: application/json" -d @$(PAYLOAD_FILE1)
+send-request2:
+	curl -X POST $(APP_URL) -H "Content-Type: application/json" -d @$(PAYLOAD_FILE2)
+send-request3:
+	curl -X POST $(APP_URL) -H "Content-Type: application/json" -d @$(PAYLOAD_FILE3)
