@@ -1,5 +1,5 @@
 import logging
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, redirect
 from algo import prduction_plan
 logging.basicConfig(level=logging.DEBUG)
 
@@ -9,8 +9,7 @@ log.setLevel(logging.WARNING)
 
 @app.route('/')
 def hello_world():
-    app.logger.debug('Hello World endpoint was accessed')
-    return 'Hello, World!'
+    return redirect('https://github.com/BenjaminLarger')
 
 @app.route('/productionplan', methods=['POST'])
 def receive_load():

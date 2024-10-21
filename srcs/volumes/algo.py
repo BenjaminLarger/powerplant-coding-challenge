@@ -65,7 +65,7 @@ def optimize_last_powerplants(powerplants_ordered_by_cost, remaining_load, power
     powerplants_temp.sort(key=lambda x: x['total_cost'])
 
     # Add the powerplant with the lowest cost to the response
-    powerplants_response.append({"name": powerplants_temp[0]['name'], "p": powerplants_temp[0]['contribution']})
+    powerplants_response.append({"name": powerplants_temp[0]['name'], "p": round(powerplants_temp[0]['contribution'], 1)})
     remaining_load -= powerplants_temp[0]['contribution']
 
     return remaining_load
@@ -80,16 +80,16 @@ def pick_powerplants(powerplants_ordered_by_cost, load):
         pmin = powerplant['pmin']
         name = powerplant['name']
         if remaining_load >= pmax:
-            powerplants_response.append({"name": name, "p": pmax})
+            powerplants_response.append({"name": name, "p": round(pmax, 1)})
             remaining_load -= pmax
         elif remaining_load >= pmin:
-            powerplants_response.append({"name": name, "p": remaining_load})
+            powerplants_response.append({"name": name, "p": round(remaining_load, 1)})
             remaining_load = 0          
         elif remaining_load < pmin and remaining_load > 0:
             # Optimize the cost of the powerplants taking into consideration pmin waste
             remaining_load = optimize_last_powerplants(powerplants_ordered_by_cost, remaining_load, powerplants_response)        
         if remaining_load <= 0 and powerplant not in powerplants_response:
-          powerplants_response.append({"name": name, "p": remaining_load})
+          powerplants_response.append({"name": name, "p": round(remaining_load, 1)})
 
     return powerplants_response
 

@@ -10,7 +10,6 @@ def get_and_parse_load(data):
         if load <= 0:
             abort(400, description="Invalid load value")
     except (ValueError, TypeError):
-        logging.debug(f"Error: Load: {load}")
         abort(400, description="Load must be an integer")
     return load
 
@@ -94,5 +93,4 @@ def get_cost_per_efficiency(powerplant, fuels):
     elif type == "gasfired":
         cost_per_mwh = gas_price / efficiency
 
-    logging.debug(f"Cost per MWh for {powerplant['name']}: {cost_per_mwh}")
     return cost_per_mwh
